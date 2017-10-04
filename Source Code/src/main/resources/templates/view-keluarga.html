@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Keluarga</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!-- <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-grid.css"></link>
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-grid.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-reboot.css"></link>
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-reboot.min.css"></link>
+		<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+		<script type="text/javascript" src="../static/js/bootstrap.min.js"></script> -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Siduk DKI</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li class="active"><a href="/">Home</a></li>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tambah<span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="/penduduk/tambah">Penduduk</a></li>
+		          <li><a href="/keluarga/tambah">Keluarga</a></li>
+		        </ul>
+		      </li>
+		      <li><a href="#">Page 2</a></li>
+		      <li><a href="#">Page 3</a></li>
+		    </ul>
+		  </div>
+		</nav>
+		
+		<div class="container">
+			<h4 class="page-header" style="margin-bottom:20px" th:text="'Lihat Data Keluarga - ' + ${keluarga.nomor_kk}"></h4>
+			<table>
+			    <tbody>
+			     	<tr>
+						<td>NKK</td><td th:text="${keluarga.nomor_kk}"></td>
+					</tr>
+					<tr>
+						<td>Alamat</td><td th:text="${keluarga.alamat}"></td>
+					</tr>
+					<tr>
+						<td>RT/RW</td><td th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></td>
+					</tr>
+					<tr>
+						<td>Kelurahan/Desa</td><td th:text="${alamat.nama_kelurahan}"></td>
+					</tr>
+					<tr>
+						<td>Kecamatan</td><td th:text="${alamat.nama_kecamatan}"></td>
+					</tr>
+					<tr>
+						<td>Kota</td><td th:text="${alamat.nama_kota}"></td>
+					</tr>
+			    </tbody>
+			 </table>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<td>No</td>
+			       	<td>Nama</td>
+			       	<td>NIK</td>
+			       	<td>Jenis Kelamin</td>
+			       	<td>Tempat Lahir</td>
+			       	<td>Tanggal Lahir</td>
+			       	<td>Agama</td>
+			       	<td>Pekerjaan</td>
+			       	<td>Status Perkawinan</td>
+			       	<td>Status dalam Keluarga</td>
+			       	<td>Kewarganegaraan</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="anggota,iterationStatus: ${anggota}">
+		            <td th:text="${iterationStatus.count}">No. 1</td>
+			       	<td th:text="${anggota.nama}">Nama</td>
+			       	<td th:text="${anggota.nik}">NIK</td>
+			       	<td th:text="${anggota.jenis_kelamin == 0} ? 'Laki-laki' : 'Perempuan'">Jenis Kelamin</td>
+			       	<td th:text="${anggota.tempat_lahir}">Tempat Lahir</td>
+			       	<td th:text="${anggota.tanggal_lahir}">Tanggal Lahir</td>
+			       	<td th:text="${anggota.agama}">Agama</td>
+			       	<td th:text="${anggota.pekerjaan}">Pekerjaan</td>
+			       	<td th:text="${anggota.status_perkawinan}">Status Perkawinan</td>
+			       	<td th:text="${anggota.status_dalam_keluarga}">Status dalam Keluarga</td>
+			       	<td th:text="${anggota.is_wni} == 1 ? 'WNI' : 'WNA'">Kewarganegaraan</td>
+		       	</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
+
