@@ -25,6 +25,19 @@ public interface PendudukMapper{
     void addPenduduk (PendudukModel penduduk);
     
     /*
+     * Masih belum bener
+     */
+    @Update("UPDATE penduduk SET nik = '${penduduk.nik}', nama = '${penduduk.nama}', tempat_lahir = '${penduduk.tempat_lahir}', tanggal_lahir = '${penduduk.tanggal_lahir}', "
+    		+ "jenis_kelamin = '${penduduk.jenis_kelamin}', is_wni = '${penduduk.is_wni}', id_keluarga = '${penduduk.id_keluarga}', agama = '${penduduk.agama}', "
+    		+ "pekerjaan = '${penduduk.pekerjaan}', status_perkawinan = '${penduduk.status_perkawinan}', status_dalam_keluarga = '${penduduk.status_dalam_keluarga}', "
+    		+ "golongan_darah = '${penduduk.golongan_darah}' "
+    		+ "WHERE id = #{id}")
+    void updatePenduduk(@Param("penduduk")PendudukModel penduduk, @Param("id")int id);
+    
+    @Update("UPDATE penduduk SET  is_wafat = '1' WHERE nik = #{nik}")
+    void updateStatusKematian(@Param("nik") String nik);
+    
+    /*
     @Delete("DELETE FROM student WHERE npm = #{npm}")
     void deleteStudent(String npm);
     

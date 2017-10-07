@@ -22,4 +22,12 @@ public interface KeluargaMapper {
 	@Insert("insert into keluarga (nomor_kk, alamat, RT, RW, id_kelurahan, is_tidak_berlaku) "
 			+ "values ('${nomor_kk}', '${alamat}', '${rt}', '${rw}', '${id_kelurahan}', '0')")
 	void addKeluarga(KeluargaModel keluarga);
+	
+	@Update("update keluarga SET nomor_kk = '${keluarga.nomor_kk}', alamat ='${keluarga.alamat}', RT = '${keluarga.rt}', "
+			+ "RW = '${keluarga.rw}', id_kelurahan = '${keluarga.id_kelurahan}', is_tidak_berlaku = '0' "
+			+ "WHERE id = #{id}")
+	void updateKeluarga(@Param("keluarga") KeluargaModel keluarga, @Param("id") int id);
+	
+	@Update("update keluarga SET is_tidak_berlaku = '1' WHERE id = #{id}")
+	void updateStatusBerlaku(@Param("id") int id);
 }

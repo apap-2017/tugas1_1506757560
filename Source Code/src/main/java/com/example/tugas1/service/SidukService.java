@@ -2,6 +2,7 @@ package com.example.tugas1.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.tugas1.model.AlamatModel;
@@ -15,10 +16,12 @@ public interface SidukService {
     
 	AlamatModel getAlamatLengkapbyIdKel(int id_kelurahan);
     
-	int getNomorUrutNIK(String digitnik);
+	String getNIKSebelum(String digitnik);
 	
 	AlamatModel getKodeAlamatbyNama(String nama_kelurahan, String nama_kecamatan, String nama_kota);
 	
-	int getNomorUrutNKK(String digitnkk);
+	AlamatModel getKodeAlamatbyIdKel(int id_kelurahan);
+	
+	String getNKKSebelum(String digitnkk);	
 
 }

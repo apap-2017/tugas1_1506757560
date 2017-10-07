@@ -2,6 +2,7 @@ package com.example.tugas1.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,14 @@ public class PendudukServiceDatabase implements PendudukService {
 	public void addPenduduk(PendudukModel penduduk) {
 		log.info ("add penduduk with id keluarga {}", penduduk.getNik());
 		pendudukMapper.addPenduduk(penduduk);
+	}
+	
+	public void updatePenduduk(PendudukModel penduduk, int id) {
+		log.info ("update penduduk with id {}", id);
+		pendudukMapper.updatePenduduk(penduduk, id);
+	}
+	
+	public void updateStatusKematian(String nik) {
+		pendudukMapper.updateStatusKematian(nik);
 	}
 }

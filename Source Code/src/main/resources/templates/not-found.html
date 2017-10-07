@@ -26,6 +26,9 @@
 		  </div>
 		</nav>
     	<h1>Not found</h1>
-       	<h4 th:text="'Id keluarga ' + ${nkk} + ' tidak ditemukan yeah'">NKK keluarga</h4>
+       	<h4 th:text=" ${id_keluarga} != null ? 'Id keluarga ' + ${id_keluarga} + ' tidak ditemukan'">Error Message</h4>
+       	<h4 th:text=" ${nik} != null ? 'Nomor induk kependudukan ' + ${nik} + ' tidak ditemukan'">Error Message</h4>
+       	<h4 th:text=" ${nkk} != null ? 'Nomor kartu keluarga ' + ${nkk} + ' tidak ditemukan'">Error Message</h4>
+       	<h4 th:text=" ${alamat} != null ? 'Alamat ' + ${alamat} + ' tidak ditemukan'">Error Message</h4>
     </body>
 </html>

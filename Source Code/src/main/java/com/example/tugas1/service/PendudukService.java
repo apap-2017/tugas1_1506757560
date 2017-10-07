@@ -12,4 +12,8 @@ public interface PendudukService {
 	List<PendudukModel> selectAnggotaKeluarga(int id_keluarga);
 
 	void addPenduduk(PendudukModel penduduk);
+	
+	void updatePenduduk(PendudukModel penduduk, int id);
+	
+	void updateStatusKematian(String nik);
 }

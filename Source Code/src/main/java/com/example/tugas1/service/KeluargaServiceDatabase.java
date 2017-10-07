@@ -29,4 +29,12 @@ public class KeluargaServiceDatabase implements KeluargaService {
 	public 	void addKeluarga(KeluargaModel keluarga) {
 		keluargaMapper.addKeluarga(keluarga);
 	}
+	
+	public void updateKeluarga(KeluargaModel keluarga, int id) {
+		keluargaMapper.updateKeluarga(keluarga, id);
+	}
+	
+	public void updateStatusBerlaku(int id) {
+		keluargaMapper.updateStatusBerlaku(id);
+	}
 }
