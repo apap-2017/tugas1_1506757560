@@ -4,17 +4,20 @@
 	<head>
 		<title>Cari Penduduk</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<!-- <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"></link>
+		<!-- 
 		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"></link>
-		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-grid.css"></link>
 		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-grid.min.css"></link>
 		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-reboot.css"></link>
 		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap-reboot.min.css"></link>
 		<script type="text/javascript" src="../static/js/bootstrap.js"></script>
-		<script type="text/javascript" src="../static/js/bootstrap.min.js"></script> -->
+		<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+		 -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+ 		<script type="text/javascript" charset="utf8" src="../static/css/datatables.js"></script>
+ 		<link href="../static/css/bootstrap.min.css" rel="stylesheet"></link>
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse">
@@ -24,32 +27,72 @@
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li><a href="/">Home</a></li>
-		      <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tambah<span class="caret"></span></a>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tambah<span class="caret"></span></a>
 		        <ul class="dropdown-menu">
-		          <li><a href="#">Penduduk</a></li>
+		          <li><a href="/penduduk/tambah">Penduduk</a></li>
 		          <li><a href="/keluarga/tambah">Keluarga</a></li>
 		        </ul>
 		      </li>
-		      <li><a href="#">Page 2</a></li>
-		      <li><a href="/penduduk/cari">Cari</a></li>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Ubah<span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="#">Penduduk</a></li>
+		          <li><a href="/keluarga/ubah">Keluarga</a></li>
+		        </ul>
+		      </li>
+		      <li class="active"><a href="cari">Cari</a></li>
 		    </ul>
 		  </div>
 		</nav>
-		<div class="container" style='margin-top:25px'>
+		<div th:if="view == null" class="container" style='margin-top:25px'>
 			<h3>Cari Penduduk</h3>
 			<form class="form-group" action="/penduduk/cari" method="get">
-				<div class="row" style="margin-left:15px">
+				<div th:if="${view} == null" class="row" style="margin-left:15px">
 					<h4 for="kode_kota" >Lihat data penduduk berdasarkan kota</h4>
 					<select class="form-control" name="kt" required = "true" >
-						<option selected="true" disabled="disabled"></option> 
-				        <option th:each="kota,iterationStatus: ${kota_list}" th:value="${kota.nama_kota}" th:text="${kota.nama_kota}">Kota</option>
+						<option th:if="${nama_kota} != null" readonly = "readonly" th:value="${nama_kota}" th:text="${nama_kota}"></option> 
+						<option th:if="${nama_kota} == null" selected="true" disabled="disabled"></option> 
+				        <option th:if="${nama_kota} == null" th:each="kota,iterationStatus: ${kota_list}" th:value="${kota.nama_kota}" th:text="${kota.nama_kota}">Kota</option>
+				    </select>
+				</div>
+				<div th:if="${nama_kota} != null" class="row" style="margin-left:15px">
+					<h4 for="kode_kecamatan" >Lihat data penduduk berdasarkan kecamatan</h4>
+					<select class="form-control" name="kc">
+						<option th:if="${nama_kecamatan} != null" th:value="${nama_kecamatan}" readonly = "readonly" th:text="${nama_kecamatan}"></option> 
+						<option th:if="${nama_kecamatan} == null" selected="true" disabled="disabled"></option> 
+				        <option th:if="${nama_kecamatan} == null" th:each="kecamatan,iterationStatus: ${kecamatan_list}" th:value="${kecamatan.nama_kecamatan}" th:text="${kecamatan.nama_kecamatan}">Kecamatan</option>
+				    </select>
+				</div>
+				<div th:if="${nama_kecamatan} != null" class="row" style="margin-left:15px">
+					<h4 for="kode_kecamatan" >Lihat data penduduk berdasarkan kelurahan</h4>
+					<select class="form-control" name="kl">
+						<option th:if="${nama_kelurahan} != null" th:value="${nama_kelurahan}" readonly = "readonly" th:text="${nama_kelurahan}"></option> 
+						<option th:if="${nama_kelurahan} == null" selected="true" disabled="disabled"></option>
+				        <option th:if="${nama_kelurahan} == null" th:each="kelurahan,iterationStatus: ${kelurahan_list}" th:value="${kelurahan.nama_kelurahan}" th:text="${kelurahan.nama_kelurahan}">Kelurahan</option>
 				    </select>
 				</div>
 				<div>
-					<button class="btn-success" style="margin-top:10px" type="submit">Cari</button>
+					<button class="btn-success" style="margin-top:10px" type="submit">Lihat</button>
 				</div>
 			</form>
-			
+		</div>
+		<div th:if="${view} != null" class="container" style='margin-top:25px'>
+			<h4 th:text="'Lihat data penduduk di Kota ' + ${nama_kota} +  ' Kecamatan ' + ${nama_kecamatan} + ' Kelurahan ' + ${nama_kelurahan}"></h4>
+			<table id="table_id" class="display">
+				<thead>
+					<tr>
+						<th>Nama</th>
+						<th>NIK</th>
+						<th>Jenis Kelamin</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="penduduk,iterationStatus: ${penduduk_list}">
+						<td th:text="${penduduk.nama}"></td>
+						<td th:text="${penduduk.nik}"></td>
+						<td th:text="${penduduk.jenis_kelamin} == 0 ? 'Laki-laki' : 'Perempuan'"></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</body>
 </html>

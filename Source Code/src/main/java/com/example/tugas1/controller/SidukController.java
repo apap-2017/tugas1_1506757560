@@ -296,6 +296,7 @@ public class SidukController {
 		 if (penduduk != null) {
 			 return "form-ubah-status-kematian";
 		 } else {
+			 model.addAttribute("nik", nik);
 			 return "not-found";
 		 }
 	 }
@@ -317,14 +318,44 @@ public class SidukController {
 		 if (wafat == anggota_keluarga.size()) {
 			 keluargaDAO.updateStatusBerlaku(id_keluarga);
 		 }
-		 model.addAttribute("nik", nik);
-		 return "ubah-status-kematian-success";
+		 model.addAttribute("nik_kematian", nik);
+		 return "success";
 	 }
 	 
+
 	 @RequestMapping(value = "/penduduk/cari")
-	 public String cariPenduduk (Model model){
+	 public String cariPendudukKota (Model model,
+			 @RequestParam(value = "kt", required = false) String nama_kota,
+	         @RequestParam(value = "kc", required = false) String nama_kecamatan,
+	         @RequestParam(value = "kl", required = false) String nama_kelurahan){
 		 List<KotaModel> kota_list = kotaDAO.selectKotaList();
 		 model.addAttribute("kota_list", kota_list);
+		 if (nama_kelurahan != null) {
+			 List<KelurahanModel> kelurahan_list = kelurahanDAO.selectKelurahanList(nama_kecamatan);
+			 int id_kelurahan = 0;
+			 for (KelurahanModel kelurahan : kelurahan_list) {
+				 if (kelurahan.getNama_kelurahan().equals(nama_kelurahan)) {
+					 id_kelurahan = kelurahan.getId();
+				 }
+			 }
+			 List<PendudukModel> penduduk_list = pendudukDAO.selectPendudukByIdKelurahan(id_kelurahan);
+			 model.addAttribute("nama_kota", nama_kota);
+			 model.addAttribute("nama_kecamatan", nama_kecamatan);
+			 model.addAttribute("nama_kelurahan", nama_kelurahan);
+			 model.addAttribute("view", "view");
+			 model.addAttribute("penduduk_list", penduduk_list);
+		 } else if (nama_kecamatan != null) {
+			 List<KecamatanModel> kecamatan_list = kecamatanDAO.selectKecamatanList(nama_kota);
+			 List<KelurahanModel> kelurahan_list = kelurahanDAO.selectKelurahanList(nama_kecamatan);
+			 model.addAttribute("nama_kota", nama_kota);
+			 model.addAttribute("nama_kecamatan", nama_kecamatan);
+			 model.addAttribute("kecamatan_list", kecamatan_list);
+			 model.addAttribute("kelurahan_list", kelurahan_list);
+		 } else if (nama_kota != null) {
+			 List<KecamatanModel> kecamatan_list = kecamatanDAO.selectKecamatanList(nama_kota);
+			 model.addAttribute("nama_kota", nama_kota);
+			 model.addAttribute("kecamatan_list", kecamatan_list);
+		 }
 		 return "cari-penduduk";
 	 }
 }

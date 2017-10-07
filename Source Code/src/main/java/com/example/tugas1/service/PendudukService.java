@@ -16,4 +16,6 @@ public interface PendudukService {
 	void updatePenduduk(PendudukModel penduduk, int id);
 	
 	void updateStatusKematian(String nik);
+	
+	List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan);
 }

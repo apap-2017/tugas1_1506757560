@@ -40,4 +40,8 @@ public class PendudukServiceDatabase implements PendudukService {
 	public void updateStatusKematian(String nik) {
 		pendudukMapper.updateStatusKematian(nik);
 	}
+	
+	public List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan){
+		return pendudukMapper.selectPendudukByIdKelurahan(id_kelurahan);
+	}
 }

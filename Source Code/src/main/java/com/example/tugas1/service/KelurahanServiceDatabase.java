@@ -24,4 +24,8 @@ public class KelurahanServiceDatabase implements KelurahanService {
 	public int getIdbyKodeKelurahan(String kode_kelurahan) {
 		return kelurahanMapper.getIdbyKodeKelurahan(kode_kelurahan);
 	}
+	
+	public List<KelurahanModel> selectKelurahanList(String nama_kecamatan){
+		return kelurahanMapper.selectKelurahanList(nama_kecamatan);
+	}
 }
