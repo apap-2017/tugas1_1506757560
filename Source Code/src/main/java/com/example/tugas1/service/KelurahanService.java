@@ -15,4 +15,6 @@ public interface KelurahanService {
     int getIdbyKodeKelurahan(String kode_kelurahan);
     
     List<KelurahanModel> selectKelurahanList(String nama_kecamatan);
+    
+	Integer getIdKelurahanByAlamat(String nama_kelurahan, String nama_kecamatan, String nama_kota);
 }

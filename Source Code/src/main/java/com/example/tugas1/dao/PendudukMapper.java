@@ -24,9 +24,6 @@ public interface PendudukMapper{
     		+ "'${pekerjaan}', '${status_perkawinan}', '${status_dalam_keluarga}', '${golongan_darah}', '${is_wafat}')")
     void addPenduduk (PendudukModel penduduk);
     
-    /*
-     * Masih belum bener
-     */
     @Update("UPDATE penduduk SET nik = '${penduduk.nik}', nama = '${penduduk.nama}', tempat_lahir = '${penduduk.tempat_lahir}', tanggal_lahir = '${penduduk.tanggal_lahir}', "
     		+ "jenis_kelamin = '${penduduk.jenis_kelamin}', is_wni = '${penduduk.is_wni}', id_keluarga = '${penduduk.id_keluarga}', agama = '${penduduk.agama}', "
     		+ "pekerjaan = '${penduduk.pekerjaan}', status_perkawinan = '${penduduk.status_perkawinan}', status_dalam_keluarga = '${penduduk.status_dalam_keluarga}', "
@@ -37,16 +34,15 @@ public interface PendudukMapper{
     @Update("UPDATE penduduk SET  is_wafat = '1' WHERE nik = #{nik}")
     void updateStatusKematian(@Param("nik") String nik);
     
-    @Select("select * from penduduk JOIN "
+    @Select("select nik, nama, jenis_kelamin from penduduk JOIN "
     		+ "(select id from keluarga where id_kelurahan = #{id_kelurahan}) AS keluarga "
     		+ "ON keluarga.id = penduduk.id_keluarga")
     List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan);
     
-    /*
-    @Delete("DELETE FROM student WHERE npm = #{npm}")
-    void deleteStudent(String npm);
-    
-    @Update("UPDATE student SET name = #{name}, gpa = #{gpa} WHERE npm = #{npm}")
-    void updateStudent(StudentModel student);
-    */
+    @Select("select nik, nama, tanggal_lahir from penduduk JOIN "
+    		+ "(select id from keluarga where id_kelurahan = #{id_kelurahan}) AS keluarga "
+    		+ "ON keluarga.id = penduduk.id_keluarga "
+    		+ "ORDER BY tanggal_lahir DESC "
+    		+ "LIMIT 1")
+    PendudukModel getPendudukTermudaSekelurahan(int id_kelurahan);
 }

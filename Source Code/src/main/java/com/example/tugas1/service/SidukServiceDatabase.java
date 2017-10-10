@@ -41,4 +41,5 @@ public class SidukServiceDatabase implements SidukService {
     public AlamatModel getKodeAlamatbyIdKel(int id_kelurahan) {
     	return sidukMapper.getKodeAlamatbyIdKel(id_kelurahan);
     }
+    
 }

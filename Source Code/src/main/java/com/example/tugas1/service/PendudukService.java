@@ -18,4 +18,6 @@ public interface PendudukService {
 	void updateStatusKematian(String nik);
 	
 	List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan);
+	
+	PendudukModel getPendudukTermudaSekelurahan(int id_kelurahan);
 }

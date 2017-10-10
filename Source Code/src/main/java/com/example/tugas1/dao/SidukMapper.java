@@ -48,14 +48,4 @@ public interface SidukMapper{
 	
 	@Select("select MAX(nomor_kk) from keluarga WHERE nomor_kk LIKE CONCAT(#{digitnkk},'%')")
     String getNKKSebelum(String digitnkk);
-	/*
-    @Insert("INSERT INTO student (npm, name, gpa) VALUES (#{npm}, #{name}, #{gpa})")
-    void addStudent (StudentModel student);
-    
-    @Delete("DELETE FROM student WHERE npm = #{npm}")
-    void deleteStudent(String npm);
-    
-    @Update("UPDATE student SET name = #{name}, gpa = #{gpa} WHERE npm = #{npm}")
-    void updateStudent(StudentModel student);
-    */
 }

@@ -44,4 +44,8 @@ public class PendudukServiceDatabase implements PendudukService {
 	public List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan){
 		return pendudukMapper.selectPendudukByIdKelurahan(id_kelurahan);
 	}
+	
+	public PendudukModel getPendudukTermudaSekelurahan(int id_kelurahan) {
+		return pendudukMapper.getPendudukTermudaSekelurahan(id_kelurahan);
+	}
 }

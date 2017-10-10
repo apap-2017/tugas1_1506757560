@@ -20,7 +20,7 @@ public interface SidukService {
 	
 	AlamatModel getKodeAlamatbyNama(String nama_kelurahan, String nama_kecamatan, String nama_kota);
 	
-	AlamatModel getKodeAlamatbyIdKel(int id_kelurahan);
+	AlamatModel getKodeAlamatbyIdKel(@Param("id_kelurahan")int id_kelurahan);
 	
 	String getNKKSebelum(String digitnkk);	
 

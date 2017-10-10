@@ -28,4 +28,8 @@ public class KelurahanServiceDatabase implements KelurahanService {
 	public List<KelurahanModel> selectKelurahanList(String nama_kecamatan){
 		return kelurahanMapper.selectKelurahanList(nama_kecamatan);
 	}
+	
+	public Integer getIdKelurahanByAlamat(String nama_kelurahan, String nama_kecamatan, String nama_kota) {
+    	return kelurahanMapper.getIdKelurahanByAlamat(nama_kelurahan, nama_kecamatan, nama_kota);
+    }
 }
