@@ -11,11 +11,11 @@ public interface PendudukService {
 
 	List<PendudukModel> selectAnggotaKeluarga(int id_keluarga);
 
-	void addPenduduk(PendudukModel penduduk);
+	PendudukModel addPenduduk(PendudukModel penduduk);
 	
-	void updatePenduduk(PendudukModel penduduk, int id);
+	void updatePenduduk(PendudukModel penduduk);
 	
-	void updateStatusKematian(String nik);
+	void updateStatusKematian(PendudukModel penduduk);
 	
 	List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan);
 	

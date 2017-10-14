@@ -30,4 +30,7 @@ public interface KeluargaMapper {
 	
 	@Update("update keluarga SET is_tidak_berlaku = '1' WHERE id = #{id}")
 	void updateStatusBerlaku(@Param("id") int id);
+	
+	@Select("select MAX(nomor_kk) from keluarga WHERE nomor_kk LIKE CONCAT(#{digitnkk},'%')")
+    String getNKKSebelum(String digitnkk);
 }

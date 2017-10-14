@@ -44,7 +44,8 @@
 			<h3>Ubah Penduduk</h3>
 			<form class="form-group" action="" method="post" th:object="${penduduk}">
 				<div class="row" style="margin-left:15px">
-					<input class="form-control col-sm-6"  type="hidden" name="nik" th:value="${penduduk.nik}" th:field="*{nik}" required = "true"></input>
+					<h4 for="nama" >NIK</h4>
+					<input class="form-control col-sm-6"  readonly="readonly" name="nik" th:value="${penduduk.nik}" th:field="*{nik}" required = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="nama" >Nama</h4>
@@ -105,8 +106,8 @@
 				      </select>
 				</div>
 				<div class="row" style="margin-left:15px">
-					<h4 for= "id_keluarga" >Id Keluarga</h4>
-					<input class="form-control col-sm-6" type="text" name="id_keluarga" th:value="${penduduk.id_keluarga}" th:field="*{id_keluarga}" required  = "true"></input>
+					<h4 for= "id_keluarga" >Nomor Kartu Keluarga</h4>
+					<input class="form-control col-sm-6" type="text" name="id_keluarga" th:value="${penduduk.nkk}" th:field="*{nkk}" required  = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="status_dalam_keluarga" >Status dalam Keluarga</h4>

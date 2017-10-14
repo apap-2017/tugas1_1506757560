@@ -22,7 +22,11 @@ public class KecamatanServiceDatabase implements KecamatanService {
     	return kecamatanMapper.selectKecamatanbyID(id_kecamatan);
     }
     
-    public List<KecamatanModel> selectKecamatanList(String nama_kota){
-    	return kecamatanMapper.selectKecamatanList(nama_kota);
+    public List<KecamatanModel> selectKecamatanList(int id_kota){
+    	return kecamatanMapper.selectKecamatanList(id_kota);
+    }
+    
+    public List<KecamatanModel> selectKecamatanList(){
+    	return kecamatanMapper.selectAllKecamatanList();
     }
 }

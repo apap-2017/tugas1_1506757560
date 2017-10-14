@@ -25,11 +25,11 @@ public class KelurahanServiceDatabase implements KelurahanService {
 		return kelurahanMapper.getIdbyKodeKelurahan(kode_kelurahan);
 	}
 	
-	public List<KelurahanModel> selectKelurahanList(String nama_kecamatan){
-		return kelurahanMapper.selectKelurahanList(nama_kecamatan);
+	public List<KelurahanModel> selectKelurahanList(int id_kecamatan){
+		return kelurahanMapper.selectKelurahanList(id_kecamatan);
 	}
 	
-	public Integer getIdKelurahanByAlamat(String nama_kelurahan, String nama_kecamatan, String nama_kota) {
-    	return kelurahanMapper.getIdKelurahanByAlamat(nama_kelurahan, nama_kecamatan, nama_kota);
-    }
+	public List<KelurahanModel> selectKelurahanList(){
+		return kelurahanMapper.selectAllKelurahanList();
+	}
 }

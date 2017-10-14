@@ -23,4 +23,5 @@ public class PendudukModel {
 	private int is_wafat;
 	private int jenis_kelamin;
 	private AlamatModel alamat;
+	private String nkk;
 }

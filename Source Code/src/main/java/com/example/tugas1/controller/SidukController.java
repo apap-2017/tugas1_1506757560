@@ -1,8 +1,5 @@
 package com.example.tugas1.controller;
 import java.util.List;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +23,6 @@ import com.example.tugas1.service.KelurahanService;
 import com.example.tugas1.service.PendudukService;
 import com.example.tugas1.service.SidukService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 public class SidukController {
 	@Autowired
@@ -46,17 +41,17 @@ public class SidukController {
 	@RequestMapping("/")
 	public String index (){
 		 return "index";
-	 }
+	}
 	 
 	
 	 @RequestMapping("/penduduk")
 	 public String viewPenduduk (Model model,
 			 @RequestParam(value = "nik") String nik){
 		 PendudukModel penduduk = pendudukDAO.selectPendudukbyNIK(nik);
-		 KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getId_keluarga());
-		 AlamatModel alamat = sidukDAO.getAlamatLengkapbyIdKel(keluarga.getId_kelurahan());
 		 
 		 if (penduduk != null) {
+			 KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getId_keluarga());
+			 AlamatModel alamat = sidukDAO.getAlamatLengkapbyIdKel(keluarga.getId_kelurahan());
 			 model.addAttribute ("penduduk", penduduk);
 			 model.addAttribute("keluarga", keluarga);
 			 model.addAttribute("alamat", alamat);
@@ -71,9 +66,9 @@ public class SidukController {
 	 public String viewKeluarga (Model model,
 			 @RequestParam(value = "nkk") String nkk){
 		 KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(nkk);
-		 AlamatModel alamat = sidukDAO.getAlamatLengkapbyIdKel(keluarga.getId_kelurahan());
-		 List<PendudukModel> anggota_keluarga = pendudukDAO.selectAnggotaKeluarga(keluarga.getId());
 		 if (keluarga != null) {
+			 AlamatModel alamat = sidukDAO.getAlamatLengkapbyIdKel(keluarga.getId_kelurahan());
+			 List<PendudukModel> anggota_keluarga = pendudukDAO.selectAnggotaKeluarga(keluarga.getId());
 			 model.addAttribute ("keluarga", keluarga);
 			 model.addAttribute("anggota", anggota_keluarga);
 			 model.addAttribute("alamat", alamat);
@@ -92,32 +87,10 @@ public class SidukController {
 	 
 	 @RequestMapping(value = "/penduduk/tambah", method = RequestMethod.POST)
 	 public String tambahPendudukSubmit (Model model, @ModelAttribute PendudukModel penduduk){
-		 KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getId_keluarga());
+		 PendudukModel new_penduduk = pendudukDAO.addPenduduk(penduduk);
 		 
-		 if (keluarga != null) {
-			 AlamatModel alamat = sidukDAO.getKodeAlamatbyIdKel(keluarga.getId_kelurahan());
-			 String tanggal_lahir = penduduk.getTanggal_lahir();
-			 String tanggal = tanggal_lahir.substring(8, 10);
-			 if (penduduk.getJenis_kelamin() == 1) {
-				 int tgl = Integer.parseInt(tanggal);
-				 tgl = tgl + 40;
-				 tanggal = Integer.toString(tgl);
-			 }
-			 String kelahiran = tanggal + tanggal_lahir.substring(5, 7) + tanggal_lahir.substring(2,4);
-			 String kode_kecamatan = alamat.getKode_kecamatan();
-			 String digitnik = kode_kecamatan.substring(0, kode_kecamatan.length()-1) + kelahiran;
-			 
-			 String nik_sebelum = sidukDAO.getNIKSebelum(digitnik);
-			 Long nik = Long.parseLong(digitnik + "0001");
-			 if(nik_sebelum != null) {
-				 nik = Long.parseLong(nik_sebelum) + 1;
-			 }
-			 
-			 String nik_penduduk = Long.toString(nik);
-			 penduduk.setNik(nik_penduduk);
-			 
-			 pendudukDAO.addPenduduk(penduduk);
-			 model.addAttribute ("nik_tambah", nik);
+		 if (new_penduduk != null) {
+			 model.addAttribute ("nik_tambah", new_penduduk.getNik());
 			 return "success";
 		 } else {
 			 model.addAttribute ("id_keluarga", penduduk.getId_keluarga());
@@ -127,48 +100,31 @@ public class SidukController {
 	 
 	 @RequestMapping("/keluarga/tambah")
 	 public String tambahKeluarga(Model model){
+		 List<KotaModel> kota_list = kotaDAO.selectKotaList();
+		 List<KecamatanModel> kecamatan_list = kecamatanDAO.selectKecamatanList();
+		 List<KelurahanModel> kelurahan_list = kelurahanDAO.selectKelurahanList();
 		 model.addAttribute("keluarga", new KeluargaModel());
+		 model.addAttribute("kota_list", kota_list);
+		 model.addAttribute("kecamatan_list", kecamatan_list);
+		 model.addAttribute("kelurahan_list", kelurahan_list);
 		 return "form-tambah-keluarga";
 	 }
 	 
 	 @RequestMapping(value = "/keluarga/tambah", method = RequestMethod.POST)
 	 public String tambahKeluargaSubmit (Model model, @ModelAttribute KeluargaModel keluarga){
-		 String nama_kelurahan = keluarga.getNama_kelurahan();
-		 String nama_kecamatan = keluarga.getNama_kecamatan();
-		 String nama_kota = keluarga.getNama_kota();
-		 AlamatModel kode_alamat = sidukDAO.getKodeAlamatbyNama(nama_kelurahan, nama_kecamatan, nama_kota);
-		 String kode_kecamatan = kode_alamat.getKode_kecamatan();
-		 String kode_kelurahan = kode_alamat.getKode_kelurahan();
-		 /*
-		  * 
-		  * Handle kalo kode alamat null !!
-		  * 
-		  * 
-		  */
-		 if (kode_alamat != null) {
-			 LocalDate localDate = LocalDate.now();
-		     String tanggal = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(localDate);
-		     
-		     String tanggal_rilis = tanggal.substring(8, 10) + tanggal.substring(5, 7) + tanggal.substring(2,4);
-		     String digitnkk = kode_kecamatan.substring(0, kode_kecamatan.length()-1) + tanggal_rilis;
-		     
-		     String nkk_sebelum = sidukDAO.getNKKSebelum(digitnkk);
-			 Long nkk = Long.parseLong(digitnkk + "0001");
-			 if(nkk_sebelum != null) {
-				 nkk = Long.parseLong(nkk_sebelum) + 1;
-			 }
-
-			 String nkk_keluarga = Long.toString(nkk);
-			 keluarga.setNomor_kk(nkk_keluarga);
-			 keluarga.setId_kelurahan(kelurahanDAO.getIdbyKodeKelurahan(kode_kelurahan));
-			 
-			 model.addAttribute ("nkk_tambah", nkk_keluarga);
-			 keluargaDAO.addKeluarga(keluarga);
+		 String nkk = keluargaDAO.addKeluarga(keluarga);
+		 if (!nkk.equals("not ok")) {
+			 model.addAttribute ("nkk_tambah", nkk);
 			 return "success";
 		 } else {
 			 model.addAttribute ("alamat", keluarga.getAlamat());
-			 return "not-found.html"; 
+			 return "not-found"; 
 		 }
+	 }
+	 
+	 @RequestMapping("/penduduk/ubah/")
+	 public String ubahPenduduk(){
+		 return "ubah-penduduk";
 	 }
 	 
 	 @RequestMapping("/penduduk/ubah/{nik}")
@@ -185,49 +141,12 @@ public class SidukController {
 	 
 	 @RequestMapping(value = "/penduduk/ubah/{nik}", method = RequestMethod.POST)
 	 public String ubahPendudukSubmit (Model model, @ModelAttribute PendudukModel penduduk){
-		 String nik = penduduk.getNik();
-		 PendudukModel current_penduduk = pendudukDAO.selectPendudukbyNIK(nik);
-		 int id_penduduk = current_penduduk.getId();
-		 KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getId_keluarga());
-		 String current_nik = nik.substring(0, 12);
+		 KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(penduduk.getNkk());
 		 
 		 if (keluarga != null) {
-			 AlamatModel alamat = sidukDAO.getKodeAlamatbyIdKel(keluarga.getId_kelurahan());
-			 
-			 String tanggal_lahir = penduduk.getTanggal_lahir();
-			 String tanggal = tanggal_lahir.substring(8, 10);
-			 if (penduduk.getJenis_kelamin() == 1) {
-				 int tgl = Integer.parseInt(tanggal);
-				 tgl = tgl + 40;
-				 tanggal = Integer.toString(tgl);
-			 }
-			 
-			 String kelahiran = tanggal + tanggal_lahir.substring(5, 7) + tanggal_lahir.substring(2,4);
-			 String kode_kecamatan = alamat.getKode_kecamatan();
-			 String digitnik = kode_kecamatan.substring(0, kode_kecamatan.length()-1) + kelahiran;
-			 String nik_sebelum = sidukDAO.getNIKSebelum(digitnik);
-			 
-			 
-			 if (!digitnik.equals(current_nik)) {
-				 Long new_nik = Long.parseLong(digitnik + "0001");
-				 if(nik_sebelum != null) {
-					 new_nik = Long.parseLong(nik_sebelum) + 1;
-				 }
-				 String nik_penduduk = Long.toString(new_nik);
-				 penduduk.setNik(nik_penduduk);
-			 }
-			 
-			 if(penduduk.getGolongan_darah() == null) {
-				 penduduk.setGolongan_darah(current_penduduk.getGolongan_darah());
-			 } if(penduduk.getStatus_perkawinan() == null) {
-				 penduduk.setStatus_perkawinan(current_penduduk.getStatus_perkawinan());
-			 } if(penduduk.getStatus_dalam_keluarga() == null) {
-				 penduduk.setStatus_dalam_keluarga(current_penduduk.getStatus_dalam_keluarga());
-			 } 
-				 
-			  
-			 pendudukDAO.updatePenduduk(penduduk, id_penduduk);
-			 model.addAttribute("nik_ubah", nik);
+			 penduduk.setId_keluarga(keluarga.getId());
+			 pendudukDAO.updatePenduduk(penduduk);
+			 model.addAttribute("nik_ubah", penduduk.getNik());
 			 return "success";
 		 } else {
 			 model.addAttribute ("id_keluarga", penduduk.getId_keluarga());
@@ -243,6 +162,15 @@ public class SidukController {
 			 keluarga.setNama_kelurahan(alamat.getNama_kelurahan());
 			 keluarga.setNama_kecamatan(alamat.getNama_kecamatan());
 			 keluarga.setNama_kota(alamat.getNama_kota());
+			 keluarga.setId_kota(alamat.getId_kota());
+			 keluarga.setId_kecamatan(alamat.getId_kecamatan());
+			 List<KotaModel> kota_list = kotaDAO.selectKotaList();
+			 List<KecamatanModel> kecamatan_list = kecamatanDAO.selectKecamatanList();
+			 List<KelurahanModel> kelurahan_list = kelurahanDAO.selectKelurahanList();
+			 
+			 model.addAttribute("kota_list", kota_list);
+			 model.addAttribute("kecamatan_list", kecamatan_list);
+			 model.addAttribute("kelurahan_list", kelurahan_list);
 			 model.addAttribute("keluarga", keluarga);
 			 return "form-ubah-keluarga";
 		 } else {
@@ -253,36 +181,11 @@ public class SidukController {
 	 
 	 @RequestMapping(value = "/keluarga/ubah/{nkk}", method = RequestMethod.POST)
 	 public String ubahKeluargaSubmit (Model model, @ModelAttribute KeluargaModel keluarga, @PathVariable(value = "nkk") String nkk){
-		 String nama_kelurahan = keluarga.getNama_kelurahan();
-		 String nama_kecamatan = keluarga.getNama_kecamatan();
-		 String nama_kota = keluarga.getNama_kota();
-		 AlamatModel kode_alamat = sidukDAO.getKodeAlamatbyNama(nama_kelurahan, nama_kecamatan, nama_kota);
-		 String kode_kecamatan = kode_alamat.getKode_kecamatan();
-		 String kode_kelurahan = kode_alamat.getKode_kelurahan();
-		 
-		 int id = keluargaDAO.selectKeluargabyNKK(nkk).getId();
-		 String current_nkk = nkk.substring(0, 6);
+		 AlamatModel kode_alamat = sidukDAO.getKodeAlamatbyId(keluarga.getId_kelurahan(), keluarga.getId_kecamatan(), keluarga.getId_kota());
+
 		 if (kode_alamat != null) {
-			 
-			 if (!kode_kecamatan.equals(current_nkk)) {
-				 LocalDate localDate = LocalDate.now();
-			     String tanggal = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(localDate);
-			     
-			     String tanggal_rilis = tanggal.substring(8, 10) + tanggal.substring(5, 7) + tanggal.substring(2,4);
-			     String digitnkk = kode_kecamatan.substring(0, kode_kecamatan.length()-1) + tanggal_rilis;
-			     
-			     String nkk_sebelum = sidukDAO.getNKKSebelum(digitnkk);
-				 Long nkk_baru = Long.parseLong(digitnkk + "0001");
-				 if(nkk_sebelum != null) {
-					 nkk_baru = Long.parseLong(nkk_sebelum) + 1;
-				 }
-				 keluarga.setNomor_kk(Long.toString(nkk_baru));
-			 }
-			
-			 keluarga.setId_kelurahan(kelurahanDAO.getIdbyKodeKelurahan(kode_kelurahan));
-			 
 			 model.addAttribute ("nkk_ubah", nkk);
-			 keluargaDAO.updateKeluarga(keluarga, id);
+			 keluargaDAO.updateKeluarga(keluarga, kode_alamat);
 			 return "success";
 		 } else {
 			 model.addAttribute ("alamat", keluarga.getAlamat());
@@ -305,19 +208,8 @@ public class SidukController {
 	 public String ubahStatusKematianSubmit (Model model,
 			 @RequestParam ( value = "nik" , required = true ) String nik){
 		 PendudukModel penduduk = pendudukDAO.selectPendudukbyNIK(nik);
-		 pendudukDAO.updateStatusKematian(nik);
-		 int id_keluarga = penduduk.getId_keluarga();
-		 List<PendudukModel> anggota_keluarga = pendudukDAO.selectAnggotaKeluarga(id_keluarga);
-		 int wafat = 0;
-		 for (PendudukModel p : anggota_keluarga) {
-			 if (p.getIs_wafat() == 1) {
-				 wafat = wafat + 1;
-			 }
-		 }
+		 pendudukDAO.updateStatusKematian(penduduk);
 		 
-		 if (wafat == anggota_keluarga.size()) {
-			 keluargaDAO.updateStatusBerlaku(id_keluarga);
-		 }
 		 model.addAttribute("nik_kematian", nik);
 		 return "success";
 	 }
@@ -325,29 +217,40 @@ public class SidukController {
 
 	 @RequestMapping(value = "/penduduk/cari")
 	 public String cariPendudukKota (Model model,
-			 @RequestParam(value = "kt", required = false) String nama_kota,
-	         @RequestParam(value = "kc", required = false) String nama_kecamatan,
-	         @RequestParam(value = "kl", required = false) String nama_kelurahan){
+			 @RequestParam(value = "kt", required = false, defaultValue = "0") int id_kota,
+	         @RequestParam(value = "kc", required = false, defaultValue = "0") int id_kecamatan,
+	         @RequestParam(value = "kl", required = false, defaultValue = "0") int id_kelurahan){
 		 List<KotaModel> kota_list = kotaDAO.selectKotaList();
 		 model.addAttribute("kota_list", kota_list);
-		 if (nama_kelurahan != null) {
-			 int id_kelurahan = kelurahanDAO.getIdKelurahanByAlamat(nama_kelurahan, nama_kecamatan, nama_kota);
+		 if (id_kelurahan != 0) {
 			 List<PendudukModel> penduduk_list = pendudukDAO.selectPendudukByIdKelurahan(id_kelurahan);
 			 //PendudukModel penduduk_termuda = pendudukDAO.getPendudukTermudaSekelurahan(id_kelurahan);
+			 String nama_kota = kotaDAO.selectKotabyID(id_kota).getNama_kota();
+			 String nama_kelurahan = kelurahanDAO.selectKelurahanbyID(id_kelurahan).getNama_kelurahan();
+			 String nama_kecamatan = kecamatanDAO.selectKecamatanbyID(id_kecamatan).getNama_kecamatan();
 			 model.addAttribute("nama_kota", nama_kota);
+			 model.addAttribute("id_kota", id_kota);
 			 model.addAttribute("nama_kecamatan", nama_kecamatan);
+			 model.addAttribute("id_kecamatan", id_kecamatan);
 			 model.addAttribute("nama_kelurahan", nama_kelurahan);
+			 model.addAttribute("id_kelurahan", id_kelurahan);
 			 //model.addAttribute("penduduk_termuda", penduduk_termuda);
 			 model.addAttribute("view", "view");
 			 model.addAttribute("penduduk_list", penduduk_list);
-		 } else if (nama_kecamatan != null) {
-			 List<KelurahanModel> kelurahan_list = kelurahanDAO.selectKelurahanList(nama_kecamatan);
+		 } else if (id_kecamatan != 0) {
+			 List<KelurahanModel> kelurahan_list = kelurahanDAO.selectKelurahanList(id_kecamatan);
+			 String nama_kota = kotaDAO.selectKotabyID(id_kota).getNama_kota();
+			 String nama_kecamatan = kecamatanDAO.selectKecamatanbyID(id_kecamatan).getNama_kecamatan();
 			 model.addAttribute("nama_kota", nama_kota);
+			 model.addAttribute("id_kota", id_kota);
 			 model.addAttribute("nama_kecamatan", nama_kecamatan);
+			 model.addAttribute("id_kecamatan", id_kecamatan);
 			 model.addAttribute("kelurahan_list", kelurahan_list);
-		 } else if (nama_kota != null) {
-			 List<KecamatanModel> kecamatan_list = kecamatanDAO.selectKecamatanList(nama_kota);
+		 } else if (id_kota != 0) {
+			 List<KecamatanModel> kecamatan_list = kecamatanDAO.selectKecamatanList(id_kota);
+			 String nama_kota = kotaDAO.selectKotabyID(id_kota).getNama_kota();
 			 model.addAttribute("nama_kota", nama_kota);
+			 model.addAttribute("id_kota", id_kota);
 			 model.addAttribute("kecamatan_list", kecamatan_list);
 		 }
 		 return "cari-penduduk";

@@ -16,12 +16,9 @@ public interface SidukService {
     
 	AlamatModel getAlamatLengkapbyIdKel(int id_kelurahan);
     
-	String getNIKSebelum(String digitnik);
 	
-	AlamatModel getKodeAlamatbyNama(String nama_kelurahan, String nama_kecamatan, String nama_kota);
+	AlamatModel getKodeAlamatbyId(int id_kelurahan, int id_kecamatan, int id_kota);
 	
-	AlamatModel getKodeAlamatbyIdKel(@Param("id_kelurahan")int id_kelurahan);
-	
-	String getNKKSebelum(String digitnkk);	
+	AlamatModel getKodeAlamatbyIdKel(int id_kelurahan);	
 
 }

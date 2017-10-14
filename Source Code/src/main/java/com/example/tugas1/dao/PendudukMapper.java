@@ -2,7 +2,6 @@ package com.example.tugas1.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -45,4 +44,7 @@ public interface PendudukMapper{
     		+ "ORDER BY tanggal_lahir DESC "
     		+ "LIMIT 1")
     PendudukModel getPendudukTermudaSekelurahan(int id_kelurahan);
+    
+    @Select("select MAX(nik) from penduduk WHERE nik LIKE CONCAT(#{digitnik},'%')")
+    String getNIKSebelum(String digitnik);
 }

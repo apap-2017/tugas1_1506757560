@@ -17,8 +17,9 @@ public interface KecamatanMapper {
 	 @Select("select * from kecamatan where id = #{id_kecamatan}")
 	 KecamatanModel selectKecamatanbyID(int id_kecamatan);
 	 
-	 @Select("select nama_kecamatan from kecamatan JOIN "
-	 		+ "(select id from kota where nama_kota = #{nama_kota}) AS kota "
-	 		+ "ON kota.id = kecamatan.id_kota")
-	 List<KecamatanModel> selectKecamatanList(@Param("nama_kota")String nama_kota);
+	 @Select("select id, nama_kecamatan from kecamatan where kecamatan.id_kota = #{id_kota}")
+	 List<KecamatanModel> selectKecamatanList(@Param("id_kota") int id_kota);
+	 
+	 @Select("select id, nama_kecamatan from kecamatan")
+	 List<KecamatanModel> selectAllKecamatanList();
 }

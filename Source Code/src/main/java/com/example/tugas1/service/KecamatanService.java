@@ -11,6 +11,8 @@ public interface KecamatanService {
     
     KecamatanModel selectKecamatanbyID(int id_kecamatan);
     
-    List<KecamatanModel> selectKecamatanList(String nama_kota);
+    List<KecamatanModel> selectKecamatanList(int id_kota);
+    
+    List<KecamatanModel> selectKecamatanList();
     
 }

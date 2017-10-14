@@ -26,16 +26,8 @@ public class SidukServiceDatabase implements SidukService {
     	return sidukMapper.getAlamatLengkapbyIdKel(id_kelurahan);
     }
     
-    public String getNIKSebelum(String digitnik) {
-    	return sidukMapper.getNIKSebelum(digitnik);
-    }
-    
-    public String getNKKSebelum(String digitnkk) {
-    	return sidukMapper.getNKKSebelum(digitnkk);
-    }
-    
-    public AlamatModel getKodeAlamatbyNama(String nama_kelurahan, String nama_kecamatan, String nama_kota) {
-    	return sidukMapper.getKodeAlamatbyNama(nama_kelurahan, nama_kecamatan, nama_kota);
+    public AlamatModel getKodeAlamatbyId(int id_kelurahan, int id_kecamatan, int id_kota) {
+    	return sidukMapper.getKodeAlamatbyId(id_kelurahan, id_kecamatan, id_kota);
     }
     
     public AlamatModel getKodeAlamatbyIdKel(int id_kelurahan) {

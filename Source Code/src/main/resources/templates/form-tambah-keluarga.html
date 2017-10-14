@@ -56,16 +56,25 @@
 					<input class="form-control col-sm-6" type="text" name="rw" th:field="*{rw}" required = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
-					<h4 for="kelurahan" >Kelurahan/Desa</h4>
-					<input class="form-control col-sm-6" type="text" name="kelurahan" th:field="*{nama_kelurahan}" required = "true"></input>
+					<h4 for="kelurahan" >Kelurahan</h4>
+					<select class="form-control" name="kl" required = "true" th:field="*{id_kelurahan}"> 
+				        <option selected="true" disabled="disabled" value="0"></option> 
+				        <option th:each="kelurahan,iterationStatus: ${kelurahan_list}" th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}">Kelurahan</option>
+				    </select>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="kecamatan" >Kecamatan</h4>
-					<input class="form-control col-sm-6" type="text" name="kecamatan" th:field="*{nama_kecamatan}" required = "true"></input>
+					<select class="form-control" name="kc" required = "true" th:field="*{id_kecamatan}"> 
+				        <option selected="true" disabled="disabled" value="0"></option> 
+				        <option th:each="kecamatan,iterationStatus: ${kecamatan_list}" th:value="${kecamatan.id}" th:text="${kecamatan.nama_kecamatan}">kecamatan</option>
+				    </select>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="kota" >Kota</h4>
-					<input class="form-control col-sm-6" type="text" name="kota" th:field="*{nama_kota}" required = "true"></input>
+					<select class="form-control" name="kt" required = "true" th:field="*{id_kota}"> 
+				        <option selected="true" disabled="disabled" value="0"></option> 
+				        <option th:each="kota,iterationStatus: ${kota_list}" th:value="${kota.id}" th:text="${kota.nama_kota}">Kota</option>
+				    </select>
 				</div>
 				<div>
 					<button class="btn-success" name="action" style="margin-top:10px" type="submit">Tambah</button>
