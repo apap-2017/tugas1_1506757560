@@ -44,8 +44,8 @@ public class SidukController {
 	}
 	 
 	
-	 @RequestMapping("/penduduk")
-	 public String viewPenduduk (Model model,
+	 @RequestMapping(value = "/penduduk", method = RequestMethod.GET)
+	 public String viewPenduduk (Model model, 
 			 @RequestParam(value = "nik") String nik){
 		 PendudukModel penduduk = pendudukDAO.selectPendudukbyNIK(nik);
 		 
@@ -233,6 +233,8 @@ public class SidukController {
 			 model.addAttribute("id_kelurahan", id_kelurahan);
 			 model.addAttribute("view", "view");
 			 model.addAttribute("penduduk_list", pendudukDAO.selectPendudukByIdKelurahan(id_kelurahan));
+			 model.addAttribute("penduduk_termuda", pendudukDAO.getPendudukTermudaSekelurahan(id_kelurahan));
+			 model.addAttribute("penduduk_tertua", pendudukDAO.getPendudukTertuaSekelurahan(id_kelurahan));
 		 } else if (id_kecamatan != 0) {
 			 model.addAttribute("nama_kota", kotaDAO.selectKotabyID(id_kota).getNama_kota());
 			 model.addAttribute("id_kota", id_kota);

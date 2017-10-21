@@ -51,6 +51,13 @@ public interface PendudukMapper{
     		+ "LIMIT 1")
     PendudukModel getPendudukTermudaSekelurahan(int id_kelurahan);
     
+    @Select("select nik, nama, tanggal_lahir from penduduk JOIN "
+    		+ "(select id from keluarga where id_kelurahan = #{id_kelurahan}) AS keluarga "
+    		+ "ON keluarga.id = penduduk.id_keluarga "
+    		+ "ORDER BY tanggal_lahir ASC "
+    		+ "LIMIT 1")
+    PendudukModel getPendudukTertuaSekelurahan(int id_kelurahan);
+    
     @Select("select MAX(nik) from penduduk WHERE nik LIKE CONCAT(#{digitnik},'%')")
     String getNIKSebelum(String digitnik);
 }

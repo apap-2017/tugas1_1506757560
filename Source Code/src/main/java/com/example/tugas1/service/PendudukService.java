@@ -18,4 +18,6 @@ public interface PendudukService {
 	List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan);
 	
 	PendudukModel getPendudukTermudaSekelurahan(int id_kelurahan);
+	
+	PendudukModel getPendudukTertuaSekelurahan(int id_kelurahan);
 }

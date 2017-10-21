@@ -104,6 +104,10 @@ public class PendudukServiceDatabase implements PendudukService {
 		return pendudukMapper.getPendudukTermudaSekelurahan(id_kelurahan);
 	}
 	
+	public PendudukModel getPendudukTertuaSekelurahan(int id_kelurahan) {
+		return pendudukMapper.getPendudukTertuaSekelurahan(id_kelurahan);
+	}
+	
 	public String generateNik(PendudukModel penduduk) {
 		KeluargaModel keluarga = keluargaMapper.selectKeluargabyID(penduduk.getId_keluarga());
 		AlamatModel alamat = lokasiMapper.getKodeAlamatbyIdKel(keluarga.getId_kelurahan());

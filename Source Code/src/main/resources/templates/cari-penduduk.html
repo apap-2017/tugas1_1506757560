@@ -72,8 +72,8 @@
 		<div th:if="${view} != null" class="container" style='margin-top:25px'>
 			<h4 th:text="'Lihat data penduduk di ' + ${nama_kota} +  ' Kecamatan ' + ${nama_kecamatan} + ' Kelurahan ' + ${nama_kelurahan}"></h4>
 			<hr/>
-				<!-- div class="row">
-					<div class="coll-sm-6">
+				<div class="row container">
+					<div style="float: left;">
 						<h5>Penduduk Termuda</h5>
 						<table class="table table-striped">
 							<tr>
@@ -90,7 +90,7 @@
 							</tr>
 						</table>
 					</div>
-					<div class="coll-sm-6">
+					<div style="float: left; margin-left: 20%">
 						<h5>Penduduk Tertua</h5>
 						<table class="table table-striped">
 							<tr>
@@ -108,7 +108,7 @@
 						</table>
 					</div>
 				</div>
-			<hr/ -->
+			<hr/>
 			<table id="myTable" class="display table">
 				<thead>
 					<tr>
