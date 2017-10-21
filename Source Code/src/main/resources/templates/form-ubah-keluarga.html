@@ -41,11 +41,14 @@
 		  </div>
 		</nav>
 		<div class="container" style='margin-top:25px'>
-			<h3>Tambah Keluarga</h3>
+			<h3>Ubah Keluarga</h3>
 			<form class="form-group" action="" method="post" th:object="${keluarga}">
 				<div class="row" style="margin-left:15px">
-					<h4 for="alamat" >NKK</h4>
-					<input class="form-control col-sm-6" type="text" readonly="readonly" name="alamat" th:value="${keluarga.nomor_kk}" th:field="*{nomor_kk}" required = "true"></input>
+					<input class="form-control col-sm-6" type="hidden" readonly="readonly" name="id" th:value="${keluarga.id}" th:field="*{id}" required = "true"></input>
+				</div>
+				<div class="row" style="margin-left:15px">
+					<h4 for="nomor_kk" >NKK</h4>
+					<input class="form-control col-sm-6" type="text" readonly="readonly" name="nomor_kk" th:value="${keluarga.nomor_kk}" th:field="*{nomor_kk}" required = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="alamat" >Alamat</h4>
@@ -82,7 +85,7 @@
 				</div>
 				
 				<div>
-					<button class="btn-success" name="action" style="margin-top:10px" type="submit">Tambah</button>
+					<button class="btn btn-success" name="action" style="margin-top:10px" type="submit">Ubah</button>
 				</div>
 			</form>
 			

@@ -1,25 +1,17 @@
 package com.example.tugas1.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
-import com.example.tugas1.model.PendudukModel;
-import com.example.tugas1.model.KeluargaModel;
-import com.example.tugas1.model.KelurahanModel;
 import com.example.tugas1.model.AlamatModel;
-import com.example.tugas1.model.KecamatanModel;
-import com.example.tugas1.model.KotaModel;
+
 
 @Mapper
-public interface SidukMapper{
+public interface LokasiMapper{
     
-    @Select("select kot.id AS id_kota, kec.id AS id_kecamatan, kel.id, kel.nama_kelurahan, kec.nama_kecamatan, kot.nama_kota "
+    @Select("select kot.id AS id_kota, kec.id AS id_kecamatan, kel.id AS id_kelurahan, "
+    		+ "kel.nama_kelurahan, kec.nama_kecamatan, kot.nama_kota "
     		+ "FROM (SELECT id, nama_kota FROM kota) AS kot JOIN "
     		+ "(SELECT id, id_kota, nama_kecamatan FROM kecamatan) AS kec "
     		+ "ON kot.id = kec.id_kota JOIN "

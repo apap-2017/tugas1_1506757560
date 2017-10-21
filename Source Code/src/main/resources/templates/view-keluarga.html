@@ -54,13 +54,13 @@
 						<td>RT/RW</td><td th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></td>
 					</tr>
 					<tr>
-						<td>Kelurahan/Desa</td><td th:text="${alamat.nama_kelurahan}"></td>
+						<td>Kelurahan/Desa</td><td th:text="${keluarga.nama_kelurahan}"></td>
 					</tr>
 					<tr>
-						<td>Kecamatan</td><td th:text="${alamat.nama_kecamatan}"></td>
+						<td>Kecamatan</td><td th:text="${keluarga.nama_kecamatan}"></td>
 					</tr>
 					<tr>
-						<td>Kota</td><td th:text="${alamat.nama_kota}"></td>
+						<td>Kota</td><td th:text="${keluarga.nama_kota}"></td>
 					</tr>
 			    </tbody>
 			 </table>
@@ -84,7 +84,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="anggota,iterationStatus: ${anggota}">
+					<tr th:each="anggota,iterationStatus: ${keluarga.anggota}">
 			            <td th:text="${iterationStatus.count}">No. 1</td>
 				       	<td th:text="${anggota.nama}">Nama</td>
 				       	<td th:text="${anggota.nik}">NIK</td>

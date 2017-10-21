@@ -1,26 +1,15 @@
 package com.example.tugas1.service;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.tugas1.dao.SidukMapper;
-import com.example.tugas1.model.KecamatanModel;
-import com.example.tugas1.model.KeluargaModel;
-import com.example.tugas1.model.KelurahanModel;
-import com.example.tugas1.model.KotaModel;
-import com.example.tugas1.model.PendudukModel;
+import com.example.tugas1.dao.LokasiMapper;
 import com.example.tugas1.model.AlamatModel;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
-public class SidukServiceDatabase implements SidukService {
+public class LokasiServiceDatabase implements LokasiService {
 	@Autowired
-	private SidukMapper sidukMapper;
+	private LokasiMapper sidukMapper;
     
     public AlamatModel getAlamatLengkapbyIdKel(int id_kelurahan){
     	return sidukMapper.getAlamatLengkapbyIdKel(id_kelurahan);

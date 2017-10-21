@@ -22,6 +22,11 @@ public class PendudukModel {
 	private String golongan_darah;
 	private int is_wafat;
 	private int jenis_kelamin;
-	private AlamatModel alamat;
+	private String rt;
+	private String rw;
+	private String nama_kelurahan;
+	private String nama_kecamatan;
+	private String nama_kota;
 	private String nkk;
+	private String alamat;
 }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Not found</title>
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<html xmlns:th = "http://www.thymeleaf.org">
+	<head>
+		<title>404 Not found</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
@@ -30,12 +31,7 @@
 		    </ul>
 		  </div>
 		</nav>
-		<div class="container" style='margin-top:25px'>
-    		<h1>Not found</h1>
-       		<h4 th:text=" ${nik_salah} != null ? 'Nomor induk kependudukan ' + ${nik_salah} + ' tidak ditemukan'">Error Message</h4>
-       		<h4 th:text=" ${nkk_salah} != null ? 'Nomor kartu keluarga ' + ${nkk_salah} + ' tidak ditemukan'">Error Message</h4>
-       		<h4 th:text=" ${id_keluarga_salah} != null ? 'Id Keluarga ' + ${id_keluarga_salah} + ' tidak ditemukan'">Error Message</h4>
-       		<h4 th:text=" ${alamat} != null ? 'Kombinasi kelurahan, kecamatan, kota tidak ditemukan'">Error Message</h4>
-       	</div>
-    </body>
+		<h1>Not found</h1>
+		<h3>Halaman tidak ditemukan</h3>
+	</body>
 </html>

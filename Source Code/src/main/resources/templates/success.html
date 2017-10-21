@@ -44,8 +44,12 @@
 			<h3>Success!</h3>
 			<h4 th:text="${nik_tambah} != null ? 'Penduduk dengan nik ' + ${nik_tambah} + ' berhasil ditambahkan'">Success Message</h4>
 			<h4 th:text="${nkk_tambah} != null ? 'Keluarga dengan nkk ' + ${nkk_tambah} + ' berhasil ditambahkan'">Success Message</h4>
-			<h4 th:text="${nik_ubah} != null ? 'Penduduk dengan nik ' + ${nik_ubah} + ' berhasil diubah'">Success Message</h4>
-			<h4 th:text="${nkk_ubah} != null ? 'Keluarga dengan nkk ' + ${nkk_ubah} + ' berhasil diubah'">Success Message</h4>
+			<h4 th:text="${nik_tidak_ubah} != null ? 'Penduduk dengan nik ' + ${nik} + ' tidak mengalami perubahan'">Success Message</h4>
+			<h4 th:text="${nik_ubah} != null ? 'Penduduk dengan nik ' + ${nik_lama} + ' berhasil diubah'">Success Message</h4>
+			<h4 th:text="${nik_baru} != null ? 'Penduduk dengan nik ' + ${nik_lama} + ' berhasil diubah menjadi ' + ${nik_baru}">Success Message</h4>
+			<h4 th:text="${nkk_tidak_ubah} != null ? 'Keluarga dengan nkk ' + ${nkk} + ' tidak mengalami perubahan'">Success Message</h4>
+			<h4 th:text="${nkk_ubah} != null ? 'Keluarga dengan nkk ' + ${nkk_lama} + ' berhasil diubah'">Success Message</h4>
+			<h4 th:text="${nkk_baru} != null ? 'Keluarga dengan nkk ' + ${nkk_lama} + ' berhasil diubah menjadi ' + ${nkk_baru}">Success Message</h4>
 			<h4 th:text="${nik_kematian} != null ? 'Status kematian penduduk dengan nik ' + ${nik_kematian} + ' berhasil diubah'">Success Message</h4>
 		</div>
 	</body>

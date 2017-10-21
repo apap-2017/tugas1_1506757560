@@ -44,6 +44,9 @@
 			<h3>Ubah Penduduk</h3>
 			<form class="form-group" action="" method="post" th:object="${penduduk}">
 				<div class="row" style="margin-left:15px">
+					<input class="form-control col-sm-6" type="hidden" readonly="readonly" name="id" th:value="${penduduk.id}" th:field="*{id}" required = "true"></input>
+				</div>
+				<div class="row" style="margin-left:15px">
 					<h4 for="nama" >NIK</h4>
 					<input class="form-control col-sm-6"  readonly="readonly" name="nik" th:value="${penduduk.nik}" th:field="*{nik}" required = "true"></input>
 				</div>
@@ -65,7 +68,7 @@
 						<option selected="true" disabled="disabled" th:text="${penduduk.jenis_kelamin} == 0 ? 'Laki-laki' : 'Perempuan'"></option> 
 				        <option th:value="'0'">Laki-laki</option>
 				        <option th:value="'1'">Perempuan</option>
-				      </select>
+				     </select>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="golongan_darah" >Golongan Darah</h4>
@@ -87,39 +90,57 @@
 				        <option selected="true" disabled="disabled" th:text="${penduduk.status_perkawinan}"></option> 
 				        <option th:value="'Belum Kawin'">Belum Kawin</option>
 				        <option th:value="'Kawin'">Kawin</option>
+				        <option th:value="'Cerai Hidup'">Cerai Hidup</option>
+				        <option th:value="'Cerai Mati'">Cerai Mati</option>
 				      </select>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="agama" >Agama</h4>
-					<input class="form-control col-sm-6" type="text" name="agama" th:value="${penduduk.agama}" th:field="*{agama}" required = "true"></input>
+					<select class="form-control" name="agama" th:value="*{agama}" required = "true">
+				        <option selected="true" disabled="disabled" th:text="${penduduk.agama}"></option> 
+				        <option th:value="'Islam'">Islam</option>
+				        <option th:value="'Kristen Protestan'">Kristen Protestan</option>
+				        <option th:value="'Katolik'">Katolik</option>
+				        <option th:value="'Hindu'">Hindu</option>
+				        <option th:value="'Budha'">Budha</option>
+				        <option th:value="'Kong Hu Cu'">Kong Hu Cu</option>
+				     </select>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="pekerjaan" >Pekerjaan</h4>
 					<input class="form-control col-sm-6" type="text" name="pekerjaan" th:value="${penduduk.pekerjaan}" th:field="*{pekerjaan}" required = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
-					<h4 for="status_kewarganegaraan" >Status Kewarganegaraan</h4>
-					<select class="form-control" name="status_kewarganegaraan"  th:value="*{is_wni}" required = "true">
+					<h4 for="is_wni" >Status Kewarganegaraan</h4>
+					<select class="form-control" name="is_wni"  th:value="*{is_wni}" required = "true">
 						<option selected="true" disabled="disabled" th:text="${penduduk.is_wni} == 1 ? 'WNI' : 'WNA'"></option> 
 				        <option th:value="'1'">WNI</option>
 				        <option th:value="'0'">WNA</option>
-				      </select>
+				    </select>
 				</div>
 				<div class="row" style="margin-left:15px">
-					<h4 for= "id_keluarga" >Nomor Kartu Keluarga</h4>
-					<input class="form-control col-sm-6" type="text" name="id_keluarga" th:value="${penduduk.nkk}" th:field="*{nkk}" required  = "true"></input>
+					<h4 for= "id_keluarga" >Id Keluarga</h4>
+					<input class="form-control col-sm-6" type="text" name="id_keluarga" th:value="${penduduk.id_keluarga}" th:field="*{id_keluarga}" required  = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="status_dalam_keluarga" >Status dalam Keluarga</h4>
 					<select class="form-control" name="status_dalam_keluarga" th:value="*{status_dalam_keluarga}" required = "true">
 				        <option selected="true" disabled="disabled" th:text="${penduduk.status_dalam_keluarga}"></option> 
 				        <option th:value="'Kepala Keluarga'">Kepala Keluarga</option>
+				        <option th:value="'Suami'">Suami</option>
 				        <option th:value="'Istri'">Istri</option>
 				        <option th:value="'Anak'">Anak</option>
-				      </select>
+				        <option th:value="'Menantu'">Menantu</option>
+				        <option th:value="'Cucu'">Cucu</option>
+				        <option th:value="'Orangtua'">Orangtua</option>
+				        <option th:value="'Mertua'">Mertua</option>
+				        <option th:value="'Famili Lain'">Famili Lain</option>
+				        <option th:value="'Pembantu'">Pembantu</option>
+						<option th:value="'Lainnya'">Lainnya</option>
+				    </select>
 				</div>
 				<div>
-					<button class="btn-success" name="action" style="margin-top:10px" type="submit">Ubah</button>
+					<button class="btn btn-success" name="action" style="margin-top:10px" type="submit">Ubah</button>
 				</div>
 			</form>
 		</div>

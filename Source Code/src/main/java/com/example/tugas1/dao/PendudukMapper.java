@@ -15,17 +15,22 @@ public interface PendudukMapper{
     @Select("select * from penduduk where nik = #{nik}")
     PendudukModel selectPendudukbyNIK (String nik);
     
-    @Select("select * from penduduk where id_keluarga = #{id_keluarga}")
-    List<PendudukModel> selectAnggotaKeluarga(int id_keluarga);
+    @Select("select * from penduduk where id = #{id}")
+    PendudukModel selectPendudukbyId (int id);
 	
-    @Insert("INSERT INTO penduduk (nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, id_keluarga, agama, pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat)"
-    		+ "VALUES ('${nik}', '${nama}', '${tempat_lahir}', '${tanggal_lahir}', ${jenis_kelamin}, ${is_wni}, '${id_keluarga}', '${agama}', "
+    @Insert("INSERT INTO penduduk (nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, id_keluarga, "
+    		+ "agama, pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat)"
+    		+ "VALUES ('${nik}', '${nama}', '${tempat_lahir}', '${tanggal_lahir}', ${jenis_kelamin}, "
+    		+ "${is_wni}, '${id_keluarga}', '${agama}', "
     		+ "'${pekerjaan}', '${status_perkawinan}', '${status_dalam_keluarga}', '${golongan_darah}', '${is_wafat}')")
     void addPenduduk (PendudukModel penduduk);
     
-    @Update("UPDATE penduduk SET nik = '${penduduk.nik}', nama = '${penduduk.nama}', tempat_lahir = '${penduduk.tempat_lahir}', tanggal_lahir = '${penduduk.tanggal_lahir}', "
-    		+ "jenis_kelamin = '${penduduk.jenis_kelamin}', is_wni = '${penduduk.is_wni}', id_keluarga = '${penduduk.id_keluarga}', agama = '${penduduk.agama}', "
-    		+ "pekerjaan = '${penduduk.pekerjaan}', status_perkawinan = '${penduduk.status_perkawinan}', status_dalam_keluarga = '${penduduk.status_dalam_keluarga}', "
+    
+    @Update("UPDATE penduduk SET nik = '${penduduk.nik}', nama = '${penduduk.nama}', tempat_lahir = '${penduduk.tempat_lahir}', "
+    		+ "tanggal_lahir = '${penduduk.tanggal_lahir}', jenis_kelamin = '${penduduk.jenis_kelamin}', "
+    		+ "is_wni = '${penduduk.is_wni}', id_keluarga = '${penduduk.id_keluarga}', agama = '${penduduk.agama}', "
+    		+ "pekerjaan = '${penduduk.pekerjaan}', status_perkawinan = '${penduduk.status_perkawinan}', "
+    		+ "status_dalam_keluarga = '${penduduk.status_dalam_keluarga}', "
     		+ "golongan_darah = '${penduduk.golongan_darah}' "
     		+ "WHERE id = #{id}")
     void updatePenduduk(@Param("penduduk")PendudukModel penduduk, @Param("id")int id);
@@ -33,8 +38,9 @@ public interface PendudukMapper{
     @Update("UPDATE penduduk SET  is_wafat = '1' WHERE nik = #{nik}")
     void updateStatusKematian(@Param("nik") String nik);
     
-    @Select("select nik, nama, jenis_kelamin from penduduk JOIN "
+    @Select("select nik, nama, jenis_kelamin from "
     		+ "(select id from keluarga where id_kelurahan = #{id_kelurahan}) AS keluarga "
+    		+ "JOIN penduduk "
     		+ "ON keluarga.id = penduduk.id_keluarga")
     List<PendudukModel> selectPendudukByIdKelurahan(int id_kelurahan);
     

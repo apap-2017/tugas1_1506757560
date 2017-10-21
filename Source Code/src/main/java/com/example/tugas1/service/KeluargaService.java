@@ -1,7 +1,10 @@
 package com.example.tugas1.service;
 
+import java.util.List;
+
 import com.example.tugas1.model.AlamatModel;
 import com.example.tugas1.model.KeluargaModel;
+import com.example.tugas1.model.PendudukModel;
 
 public interface KeluargaService {
 
@@ -9,9 +12,11 @@ public interface KeluargaService {
 	
 	KeluargaModel selectKeluargabyID(int id_keluarga);
 	
+	List<PendudukModel> selectAnggotaKeluarga(int id_keluarga);
+	
 	String addKeluarga(KeluargaModel keluarga);
 	
-	void updateKeluarga(KeluargaModel keluarga, AlamatModel kode_alamat);
+	boolean updateKeluarga(KeluargaModel keluarga, AlamatModel kode_alamat);
 	
 	void updateStatusBerlaku(int id);
 }
