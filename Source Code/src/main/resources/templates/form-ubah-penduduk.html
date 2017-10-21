@@ -30,12 +30,6 @@
 		          <li><a href="/keluarga/tambah">Keluarga</a></li>
 		        </ul>
 		      </li>
-		      <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Ubah<span class="caret"></span></a>
-		        <ul class="dropdown-menu">
-		          <li><a href="#">Penduduk</a></li>
-		          <li><a href="#">Keluarga</a></li>
-		        </ul>
-		      </li>
 		      <li><a href="/penduduk/cari">Cari</a></li>
 		    </ul>
 		  </div>
@@ -99,8 +93,8 @@
 					<select class="form-control" name="agama" th:value="*{agama}" required = "true">
 				        <option selected="true" disabled="disabled" th:text="${penduduk.agama}"></option> 
 				        <option th:value="'Islam'">Islam</option>
+				        <option th:value="'Katholik'">Katholik</option>
 				        <option th:value="'Kristen Protestan'">Kristen Protestan</option>
-				        <option th:value="'Katolik'">Katolik</option>
 				        <option th:value="'Hindu'">Hindu</option>
 				        <option th:value="'Budha'">Budha</option>
 				        <option th:value="'Kong Hu Cu'">Kong Hu Cu</option>
@@ -113,7 +107,7 @@
 				<div class="row" style="margin-left:15px">
 					<h4 for="is_wni" >Status Kewarganegaraan</h4>
 					<select class="form-control" name="is_wni"  th:value="*{is_wni}" required = "true">
-						<option selected="true" disabled="disabled" th:text="${penduduk.is_wni} == 1 ? 'WNI' : 'WNA'"></option> 
+						<option selected="true" disabled="disabled" th:value="${penduduk.is_wni}" th:text="${penduduk.is_wni} == 1 ? 'WNI' : 'WNA'"></option> 
 				        <option th:value="'1'">WNI</option>
 				        <option th:value="'0'">WNA</option>
 				    </select>

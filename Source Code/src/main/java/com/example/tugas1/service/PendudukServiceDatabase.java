@@ -55,15 +55,20 @@ public class PendudukServiceDatabase implements PendudukService {
 	public boolean updatePenduduk(PendudukModel penduduk) {
 		PendudukModel current_penduduk = pendudukMapper.selectPendudukbyId(penduduk.getId());
 		if(penduduk.getGolongan_darah() == null) {
-			 penduduk.setGolongan_darah(current_penduduk.getGolongan_darah());
+			penduduk.setGolongan_darah(current_penduduk.getGolongan_darah());
 		} if(penduduk.getStatus_perkawinan() == null) {
-			 penduduk.setStatus_perkawinan(current_penduduk.getStatus_perkawinan());
+			penduduk.setStatus_perkawinan(current_penduduk.getStatus_perkawinan());
 		} if(penduduk.getStatus_dalam_keluarga() == null) {
-			 penduduk.setStatus_dalam_keluarga(current_penduduk.getStatus_dalam_keluarga());
+			penduduk.setStatus_dalam_keluarga(current_penduduk.getStatus_dalam_keluarga());
 		} if(penduduk.getAgama() == null) {
-			 penduduk.setAgama(current_penduduk.getAgama());
+			penduduk.setAgama(current_penduduk.getAgama());
+		} if(penduduk.getJenis_kelamin() == null) {
+			penduduk.setJenis_kelamin(current_penduduk.getJenis_kelamin());
+		} if(penduduk.getIs_wni() == null) {
+			penduduk.setIs_wni(current_penduduk.getIs_wni());
 		}
 		
+		penduduk.setIs_wafat(current_penduduk.getIs_wafat());
 		int id_penduduk = current_penduduk.getId();
 		
 		if (!current_penduduk.equals(penduduk)) {
@@ -114,7 +119,7 @@ public class PendudukServiceDatabase implements PendudukService {
 		
 		String tanggal_lahir = penduduk.getTanggal_lahir();
 		String tanggal = tanggal_lahir.substring(8, 10);
-		if (penduduk.getJenis_kelamin() == 1) {
+		if (penduduk.getJenis_kelamin().equals("1")) {
 			int tgl = Integer.parseInt(tanggal);
 			tgl = tgl + 40;
 			tanggal = Integer.toString(tgl);
