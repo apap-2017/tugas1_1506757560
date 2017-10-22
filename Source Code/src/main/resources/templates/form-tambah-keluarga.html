@@ -5,8 +5,9 @@
 		<title>Tambah Keluarga</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery-keluarga.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse">
@@ -42,31 +43,32 @@
 					<input class="form-control col-sm-6" type="text" name="rw" th:field="*{rw}" required = "true"></input>
 				</div>
 				<div class="row" style="margin-left:15px">
-					<h4 for="kelurahan" >Kelurahan</h4>
-					<select class="form-control" name="kl" required = "true" th:field="*{id_kelurahan}"> 
+					<h4 for="kota" >Kota</h4>
+					<select id="select-kot" class="form-control" name="kt" required = "true" th:field="*{id_kota}"> 
 				        <option selected="true" disabled="disabled" value="0"></option> 
-				        <option th:each="kelurahan,iterationStatus: ${kelurahan_list}" th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}">Kelurahan</option>
+				        <option th:each="kota,iterationStatus: ${kota_list}" th:value="${kota.id}" th:text="${kota.nama_kota}">Kota</option>
 				    </select>
 				</div>
 				<div class="row" style="margin-left:15px">
 					<h4 for="kecamatan" >Kecamatan</h4>
-					<select class="form-control" name="kc" required = "true" th:field="*{id_kecamatan}"> 
+					<select id="select-kec" class="form-control" name="kc" required = "true" th:field="*{id_kecamatan}"> 
 				        <option selected="true" disabled="disabled" value="0"></option> 
-				        <option th:each="kecamatan,iterationStatus: ${kecamatan_list}" th:value="${kecamatan.id}" th:text="${kecamatan.nama_kecamatan}">kecamatan</option>
+				        <option th:each="kecamatan,iterationStatus: ${kecamatan_list}" th:value="${kecamatan.id}" th:text="${kecamatan.nama_kecamatan}" hidden="true" th:class="'kota-' + ${kecamatan.id_kota} + ' kec'">kecamatan</option>
 				    </select>
 				</div>
 				<div class="row" style="margin-left:15px">
-					<h4 for="kota" >Kota</h4>
-					<select class="form-control" name="kt" required = "true" th:field="*{id_kota}"> 
+					<h4 for="kelurahan" >Kelurahan</h4>
+					<select id="select-kel" class="form-control" name="kl" required = "true" th:field="*{id_kelurahan}"> 
 				        <option selected="true" disabled="disabled" value="0"></option> 
-				        <option th:each="kota,iterationStatus: ${kota_list}" th:value="${kota.id}" th:text="${kota.nama_kota}">Kota</option>
+				        <option th:each="kelurahan,iterationStatus: ${kelurahan_list}" th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}" hidden="true" th:class="'kecamatan-' + ${kelurahan.id_kecamatan} + ' kel'">Kelurahan</option>
 				    </select>
 				</div>
 				<div>
 					<button class="btn btn-primary" name="action" style="margin-top:10px" type="submit">Tambah</button>
 				</div>
 			</form>
-			
+		</div>
+    	<div th:replace = "fragments/fragment :: footer">
 		</div>
 	</body>
 </html>

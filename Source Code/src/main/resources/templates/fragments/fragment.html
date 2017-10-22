@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+	<head>
+		<title th:fragment = "title" th:text="${title_page}"> Title</title>
+	</head>
+	<body>
+		<div th:fragment = "header">
+		
+		</div>
+		<div th:fragment = "footer" class="text-center container" style="margin-top : 50px">
+			<hr/>
+			<div class="row">
+			    <ul class="nav nav-pills nav-stacked">
+			      	<li>
+			      		<a href="#">
+			      			Developed By <br/>
+			      			Abdul Raziq Andri - 1506757560<br/>
+			      			Fakultas Ilmu Komputer Universitas Indonesia
+			      		</a>
+			      	</li>
+			    </ul>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="nav nav-pills nav-justified">
+					 	<li>
+			                <a href="https://scele.cs.ui.ac.id/course/view.php?id=332">
+			                	APAP Gasal 2017
+			                </a>
+			            </li>
+						<li>
+							<a href="#">
+          						<span class="glyphicon glyphicon-copyright-mark"></span>
+          						2017
+          					</a>
+          				</li>
+			            <li>
+			                <a href="https://github.com/raziqandri">
+			                	Github
+			                </a>
+			            </li>
+			        </ul>
+			    </div>
+			</div>
+		</div>
+	</body>
+</html>

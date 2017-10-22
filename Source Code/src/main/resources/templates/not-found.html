@@ -31,5 +31,7 @@
        		<h4 th:text=" ${id_keluarga_salah} != null ? 'Id Keluarga ' + ${id_keluarga_salah} + ' tidak ditemukan'">Error Message</h4>
        		<h4 th:text=" ${alamat} != null ? 'Kombinasi kelurahan, kecamatan, kota tidak ditemukan'">Error Message</h4>
        	</div>
+       	<div th:replace = "fragments/fragment :: footer">
+		</div>
     </body>
 </html>
