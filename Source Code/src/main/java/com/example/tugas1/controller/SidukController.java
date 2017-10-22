@@ -58,7 +58,7 @@ public class SidukController {
 		 }
 	 }
 	 
-	 @RequestMapping("/keluarga")
+	 @RequestMapping(value = "/keluarga", method = RequestMethod.GET)
 	 public String viewKeluarga (Model model,
 			 @RequestParam(value = "nkk") String nkk){
 		 KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(nkk);
@@ -217,7 +217,7 @@ public class SidukController {
 	 }
 	 
 
-	 @RequestMapping(value = "/penduduk/cari")
+	 @RequestMapping(value = "/penduduk/cari",  method = RequestMethod.GET)
 	 public String cariPendudukKelurahan (Model model,
 			 @RequestParam(value = "kt", required = false, defaultValue = "0") int id_kota,
 	         @RequestParam(value = "kc", required = false, defaultValue = "0") int id_kecamatan,
