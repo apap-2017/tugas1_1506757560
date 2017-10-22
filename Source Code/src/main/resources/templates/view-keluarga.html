@@ -86,7 +86,7 @@
 				       		<button class="btn-link" th:text="${anggota.nik}" th:value="${anggota.nik}" onclick="lihatNik(this.value)" style="padding: 0px 0px 0px 0px;">
 							</button>
 						</td>
-				       	<td th:text="${anggota.jenis_kelamin == 0} ? 'Laki-laki' : 'Perempuan'">Jenis Kelamin</td>
+				       	<td th:text="${anggota.jenis_kelamin} == 0 ? 'Laki-laki' : 'Perempuan'">Jenis Kelamin</td>
 				       	<td th:text="${anggota.tempat_lahir}">Tempat Lahir</td>
 				       	<td th:text="${anggota.tanggal_lahir}">Tanggal Lahir</td>
 				       	<td th:text="${anggota.agama}">Agama</td>
