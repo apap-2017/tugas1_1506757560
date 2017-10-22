@@ -81,7 +81,15 @@
 					<tr th:each="anggota,iterationStatus: ${keluarga.anggota}">
 			            <td th:text="${iterationStatus.count}">No. 1</td>
 				       	<td th:text="${anggota.nama}">Nama</td>
-				       	<td th:text="${anggota.nik}">NIK</td>
+				       	<td>
+							<button class="btn-link" id="nik" th:text="${anggota.nik}" onclick="lihatNik()" style="padding: 0px 0px 0px 0px;">
+							</button>
+							<script type="text/javascript">
+								function lihatNik(){
+									window.location = "/penduduk?nik=" + $('#nik').html();
+								}
+							</script>
+						</td>
 				       	<td th:text="${anggota.jenis_kelamin == 0} ? 'Laki-laki' : 'Perempuan'">Jenis Kelamin</td>
 				       	<td th:text="${anggota.tempat_lahir}">Tempat Lahir</td>
 				       	<td th:text="${anggota.tanggal_lahir}">Tanggal Lahir</td>

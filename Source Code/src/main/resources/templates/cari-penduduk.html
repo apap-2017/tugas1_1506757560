@@ -72,7 +72,10 @@
 						<table class="table table-striped">
 							<tr>
 								<td>NIK</td>
-								<td th:text="${penduduk_termuda.nik}"></td>
+								<td>
+									<button class="btn-link" id="nik" th:text="${penduduk_termuda.nik}" th:value="${penduduk_termuda.nik}" onclick="lihatNik(this.value)" style="padding: 0px 0px 0px 0px;">
+									</button>
+								</td>
 							</tr>
 							<tr>
 								<td>Nama</td>
@@ -89,7 +92,10 @@
 						<table class="table table-striped">
 							<tr>
 								<td>NIK</td>
-								<td th:text="${penduduk_tertua.nik}"></td>
+								<td>
+									<button class="btn-link" id="nik" th:text="${penduduk_tertua.nik}" th:value="${penduduk_tertua.nik}" onclick="lihatNik(this.value)" style="padding: 0px 0px 0px 0px;">
+									</button>
+								</td>
 							</tr>
 							<tr>
 								<td>Nama</td>
@@ -113,7 +119,10 @@
 				</thead>
 				<tbody>
 					<tr th:each="penduduk,iterationStatus: ${penduduk_list}">
-						<td th:text="${penduduk.nik}"></td>
+						<td>
+							<button class="btn-link" id="nik" th:text="${penduduk.nik}" th:value="${penduduk.nik}" onclick="lihatNik(this.value)" style="padding: 0px 0px 0px 0px;">
+							</button>
+						</td>
 						<td th:text="${penduduk.nama}"></td>
 						<td th:text="${penduduk.jenis_kelamin} == 0 ? 'Laki-laki' : 'Perempuan'"></td>
 					</tr>

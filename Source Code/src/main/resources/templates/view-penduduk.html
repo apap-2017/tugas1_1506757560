@@ -34,6 +34,18 @@
 						<td>NIK</td><td id="nik" th:text="${penduduk.nik}"></td>
 					</tr>
 					<tr>
+						<td>NKK</td>
+						<td>
+							<button class="btn-link" id="nkk" th:text="${penduduk.nkk}" onclick="lihatNkk()" style="padding: 0px 0px 0px 0px;">
+							</button>
+							<script type="text/javascript">
+								function lihatNkk(){
+									window.location = "/keluarga?nkk=" + $('#nkk').html();
+								}
+							</script>
+						</td>
+					</tr>
+					<tr>
 						<td>Nama</td><td th:text="${penduduk.nama}"></td>
 					</tr>
 					<tr>
